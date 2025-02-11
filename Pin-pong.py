@@ -1,5 +1,4 @@
 from pygame import*
-pygame.init()
 class GameSprite(sprite.Sprite):
  #конструктор класса
     def __init__(self, player_image, player_x, player_y, size_x, size_y, player_speed):
@@ -34,6 +33,28 @@ class Player(GameSprite):
             self.rect.y -= self.speed
         if keys[K_s] and self.rect.y < win_height - 80:
             self.rect.y += self.speed
-    def fire(self):
-        bullet = Bullet(img_bullet,self.rect.centerx,self.rect.top,15,15,-15)
-        bullets.add(bullet)
+
+racket1 = Player("racket.png",30,200,50,150,4)
+racket2 = Player("racket.png",520,200,50,150,4)
+Ball = GameSprite("tenis_ball.png",200,200,50,50,4)
+win_height = 500
+win_weight = 600
+back = (255,255,0)
+window = display.set_mode((win_weight,win_height))
+window.fill(back)
+clock = time.Clock()
+game = True
+finish = False
+while game:
+    for e in event.get():
+        if e.type == QUIT:
+            game = False
+    if finish != True:
+        racket1.update_l()
+        racket2.update_r()
+
+        racket1.reset()
+        racket2.reset()
+        Ball.reset()
+    display.update()
+    clock.tick(60)
